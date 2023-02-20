@@ -1,0 +1,17 @@
+/* @import "open-props/style"; */
+@import "open-props/normalize";
+
+:root {
+  --bg-color: #7945ff;
+  --bg-dark-color: #5c2dd5;
+  --light-color: white;
+  --dark-color: black;
+  --player1-color: #fc6687;
+  --player2-color: #ffce69;
+  --player1-dark-color: #832f42;
+  --player2-dark-color: #86692c;
+}
+body {
+  background-color: var(--bg-color);
+  font-family: "Courier New", Courier, monospace;
+}
