@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import styled from "styled-components";
+import { useTimer } from "../hooks/useTimer";
 import Card from "./common/Card";
 
 const TimerCard = styled(Card)`
@@ -17,12 +19,24 @@ const Time = styled.h1`
   font-size: 40px;
 `;
 
-const Timer = ({ currentPlayerId = 1 }) => {
+const Timer = ({ currentPlayerId, onTimeout }) => {
+  const { time, resetTimer, clearTimer } = useTimer({
+    onTimeout,
+  });
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      clearTimer();
+    };
+  }, [currentPlayerId]);
+
   return (
     <TimerCard id={currentPlayerId}>
       <Description>Player {currentPlayerId}'s Turn</Description>
       <Time>
-        30<span style={{ fontSize: "28px" }}>s</span>
+        {time}
+        <span style={{ fontSize: "28px" }}>s</span>
       </Time>
     </TimerCard>
   );

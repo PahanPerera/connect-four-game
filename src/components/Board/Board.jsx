@@ -1,17 +1,17 @@
 import * as Styled from "./Board.styles";
 
-const EmptyCell = () => {
+const EmptyCell = ({ col }) => {
   return (
     <Styled.Cell>
-      <Styled.Empty />
+      <Styled.Empty data-col={col} />
     </Styled.Cell>
   );
 };
 
-const FilledCell = ({ id }) => {
+const FilledCell = ({ id, col }) => {
   return (
     <Styled.Cell>
-      <Styled.Fill id={id} />
+      <Styled.Fill id={id} data-col={col} />
     </Styled.Cell>
   );
 };
@@ -23,9 +23,9 @@ const Board = ({ grid, onClick }) => {
         return row.map((id, c) => {
           const key = `${r}_${c}`;
           if (id === 0) {
-            return <EmptyCell key={key} />;
+            return <EmptyCell key={key} col={c} />;
           } else {
-            return <FilledCell key={key} id={id} />;
+            return <FilledCell key={key} id={id} col={c} />;
           }
         });
       })}

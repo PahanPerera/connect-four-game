@@ -6,7 +6,18 @@ import * as Styled from "./App.styles";
 import { useBoard } from "./hooks/useBoard";
 
 function App() {
-  const { grid, currentPlayerId, play } = useBoard({ size: 7 });
+  const { grid, currentPlayerId, play, swapPlayer } = useBoard({ size: 7 });
+
+  const handleGridClicked = (e) => {
+    const clickedCol = e.target.dataset["col"];
+    if (clickedCol !== undefined) {
+      play(clickedCol, currentPlayerId);
+    }
+  };
+
+  const handleTimeout = () => {
+    swapPlayer();
+  };
 
   return (
     <Styled.Layout>
@@ -16,9 +27,12 @@ function App() {
         </Styled.PlayerContainer>
         <Styled.BoardContainer>
           <Header />
-          <Board grid={grid} onClick={() => play()} />
+          <Board grid={grid} onClick={handleGridClicked} />
           <Styled.TimerContainer>
-            <Timer currentPlayerId={currentPlayerId} />
+            <Timer
+              currentPlayerId={currentPlayerId}
+              onTimeout={handleTimeout}
+            />
           </Styled.TimerContainer>
         </Styled.BoardContainer>
         <Styled.PlayerContainer>
